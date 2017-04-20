@@ -12,7 +12,8 @@ class profile_rundeck::install {
     distribution => 'jdk',
   }
   class {'rundeck':
-    require => Class['java'],
+    package_ensure => '2.6.11',
+    require        => Class['java'],
   }
 
 }
