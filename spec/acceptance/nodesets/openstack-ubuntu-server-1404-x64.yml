@@ -1,0 +1,15 @@
+HOSTS:
+  ubuntu-server-1404-x64:
+    roles:
+      - master
+    platform: ubuntu-1404-amd64
+    flavor: ha_localdisk.4c.16r.60h
+    hypervisor: openstack
+    image: "Ubuntu 14.04 LTS"
+    user: ubuntu
+
+CONFIG:
+  log_level: info
+  type: foss
+  openstack_network: internal
+  color: false

@@ -1,0 +1,17 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+      ref: "4.13.1"
+    apt : "https://github.com/puppetlabs/puppetlabs-apt.git"
+
+# profile module layout, default include ntp module
+    rspec_monitor: "git://github.com/pgomersbach/test-rspec_monitor.git"
+    inifile: "https://github.com/puppetlabs/puppetlabs-inifile.git"
+    archive: "https://github.com/puppet-community/puppet-archive.git"
+    dirtree: "https://github.com/puppetlabs/pltraining-dirtree.git"
+    java_ks: "https://github.com/puppetlabs/puppetlabs-java_ks.git"
+    rundeck: "https://github.com/voxpupuli/puppet-rundeck.git"
+
+  symlinks:
+    profile_rundeck: "#{source_dir}"
