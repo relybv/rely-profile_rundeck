@@ -49,6 +49,7 @@ class profile_rundeck::install {
     package_ensure     => '2.6.11',
     server_web_context => "http://${public_hostname}:4440",
     require            => Class['java'],
+    framework_config   => $framework_config,
   }
 
 }
