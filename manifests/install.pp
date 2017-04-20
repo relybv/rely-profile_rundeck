@@ -20,6 +20,7 @@ class profile_rundeck::install {
       $public_hostname = $::fqdn
     }
   }
+  notify {"Running with ${public_hostname} adres":}
 
   class { 'java':
     distribution => 'jdk',
