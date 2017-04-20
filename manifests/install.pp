@@ -20,9 +20,31 @@ class profile_rundeck::install {
       $public_hostname = $::fqdn
     }
   }
+
   class { 'java':
     distribution => 'jdk',
   }
+
+  $framework_config = {
+    'framework.server.name'     => $public_hostname,
+    'framework.server.hostname' => $public_hostname,
+    'framework.server.port'     => '4440',
+    'framework.server.url'      => "http://${public_hostname}:4440",
+    'framework.server.username' => 'admin',
+    'framework.server.password' => 'admin',
+    'rdeck.base'                => '/var/lib/rundeck',
+    'framework.projects.dir'    => '/var/lib/rundeck/projects',
+    'framework.etc.dir'         => '/etc/rundeck',
+    'framework.var.dir'         => '/var/lib/rundeck/var',
+    'framework.tmp.dir'         => '/var/lib/rundeck/var/tmp',
+    'framework.logs.dir'        => '/var/lib/rundeck/logs',
+    'framework.libext.dir'      => '/var/lib/rundeck/libext',
+    'framework.ssh.keypath'     => '/var/lib/rundeck/.ssh/id_rsa',
+    'framework.ssh.user'        => 'rundeck',
+    'framework.ssh.timeout'     => '0',
+    'rundeck.server.uuid'       => $::serialnumber,
+  }
+
   class {'rundeck':
     package_ensure     => '2.6.11',
     server_web_context => "http://${public_hostname}:4440",
