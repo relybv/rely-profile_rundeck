@@ -26,7 +26,7 @@ class profile_rundeck::install {
     distribution => 'jdk',
   }
 
-  $framework_config = {
+  $myframework_config = {
     'framework.server.name'     => $public_hostname,
     'framework.server.hostname' => $public_hostname,
     'framework.server.port'     => '4440',
@@ -48,7 +48,7 @@ class profile_rundeck::install {
 
   class {'rundeck':
     package_ensure     => '2.6.11',
-    server_web_context => "http://${public_hostname}:4440",
+#    server_web_context => "http://${public_hostname}:4440",
     require            => Class['java'],
     framework_config   => $framework_config,
   }
