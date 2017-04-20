@@ -11,6 +11,7 @@ fixtures:
     archive: "https://github.com/puppet-community/puppet-archive.git"
     dirtree: "https://github.com/puppetlabs/pltraining-dirtree.git"
     java_ks: "https://github.com/puppetlabs/puppetlabs-java_ks.git"
+    java: "https://github.com/puppetlabs/puppetlabs-java.git"
     rundeck: "https://github.com/voxpupuli/puppet-rundeck.git"
 
   symlinks:

@@ -8,7 +8,9 @@ class profile_rundeck::install {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
+  include ::java
   class {'rundeck':
   }
+  Class['java'] -> Class['rundeck']
 
 }
