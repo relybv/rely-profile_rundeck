@@ -18,6 +18,7 @@ describe 'profile_rundeck' do
           it { is_expected.to contain_class('profile_rundeck::install') }
           it { is_expected.to contain_class('profile_rundeck::config') }
           it { is_expected.to contain_class('profile_rundeck::service') }
+          it { is_expected.to contain_class('java') }
           it { is_expected.to contain_class('rundeck') }
 
         end

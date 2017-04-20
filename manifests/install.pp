@@ -9,10 +9,10 @@ class profile_rundeck::install {
   }
 
   class { 'java':
-    distribution => 'jre',
+    distribution => 'jdk',
   }
   class {'rundeck':
+    require => Class['java'],
   }
-  Class['java'] -> Class['rundeck']
 
 }
