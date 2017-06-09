@@ -27,8 +27,8 @@ class profile_rundeck::install {
   }
 
   $myframework_config = {
-    'framework.server.name'     => $public_hostname,
-    'framework.server.hostname' => $public_hostname,
+#    'framework.server.name'     => $public_hostname,
+#    'framework.server.hostname' => $public_hostname,
     'framework.server.port'     => '4440',
     'framework.server.url'      => "http://${public_hostname}:4440",
     'framework.server.username' => 'admin',
