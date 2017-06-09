@@ -27,8 +27,8 @@ class profile_rundeck::install {
   }
 
   $myframework_config = {
-#    'framework.server.name'     => $public_hostname,
-#    'framework.server.hostname' => $public_hostname,
+    'framework.server.name'     => $public_hostname,
+    'framework.server.hostname' => $public_hostname,
     'framework.server.port'     => '4440',
     'framework.server.url'      => "http://${public_hostname}:4440",
     'framework.server.username' => 'admin',
@@ -47,10 +47,10 @@ class profile_rundeck::install {
   }
 
   class {'rundeck':
-    package_ensure   => '2.6.11',
-#    server_web_context => "http://${public_hostname}:4440",
-    require          => Class['java'],
-    framework_config => $myframework_config,
+    package_ensure    => '2.6.11',
+    grails_server_url => "http://${public_hostname}:4440",
+    require           => Class['java'],
+    framework_config  => $myframework_config,
   }
 
 }
