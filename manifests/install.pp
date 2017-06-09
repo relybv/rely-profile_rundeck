@@ -22,9 +22,7 @@ class profile_rundeck::install {
   }
   notify {"Running with ${public_hostname} adres":}
 
-  class { 'java':
-    distribution => 'jdk',
-  }
+  include java
 
   $myframework_config = {
     'framework.server.name'     => $public_hostname,
