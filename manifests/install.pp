@@ -51,7 +51,11 @@ class profile_rundeck::install {
     framework_config  => $myframework_config,
   }
 
-  file { '/var/lib/rundeck/libext/rundeck-json-plugin-1.1.jar':
+  package {'rundeck-cli':
+    ensure => present,
+  }
+
+  file {'/var/lib/rundeck/libext/rundeck-json-plugin-1.1.jar':
     source  => 'puppet:///modules/profile_rundeck/rundeck-json-plugin-1.1.jar',
     require => Class['rundeck'],
   }
