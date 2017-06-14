@@ -25,14 +25,18 @@ describe 'profile_rundeck class' do
       it { is_expected.to be_installed }
     end
 
+    describe package('rundeck-cli') do
+      it { is_expected.to be_installed }
+    end
+
     describe service('rundeckd') do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
 
-#    describe port(4440) do
-#      it { should be_listening }
-#    end
+    describe port(4440) do
+      it { should be_listening }
+    end
 
   end
 end

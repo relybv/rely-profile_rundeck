@@ -20,13 +20,11 @@ class profile_rundeck::config {
     group   => 'rundeck',
     mode    => '0750',
     source  => 'puppet:///modules/profile_rundeck/projects',
-    require => Class['rundeck'],
   }
 
   exec {'move projectsdir':
-    command     => '/bin/rm -rf /var/lib/rundeck/projects;/bin/mv /tmp/projects /var/lib/rundeck/',
-    subscribe   => File['/tmp/projects/'],
-    refreshonly => true,
+    command => '/bin/rm -rf /var/lib/rundeck/projects;/bin/mv /tmp/projects /var/lib/rundeck/',
+    require => Class['rundeck'],
   }
 
   file {'/tmp/jobs/':
@@ -35,25 +33,30 @@ class profile_rundeck::config {
     owner   => 'rundeck',
     group   => 'rundeck',
     source  => 'puppet:///modules/profile_rundeck/jobs',
+    require => Exec['wait for rundeck'],
+  }
+
+  exec {'wait for rundeck':
     require => Class['rundeck'],
+    command => '/usr/bin/wget --spider --tries 100 --retry-connrefused http://localhost:4440',
   }
 
   exec { 'inport check_puppet_resources job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_puppet_resources',
     environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => File['/tmp/jobs/'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
   }
 
   exec { 'inport disable_appl_lb job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/disable_appl_lb',
     environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => File['/tmp/jobs/'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
   }
 
   exec { 'inport enable_appl_lb job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/enable_appl_lb',
     environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => File['/tmp/jobs/'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
   }
 
 }
