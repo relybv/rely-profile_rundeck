@@ -18,6 +18,7 @@ class profile_rundeck::config {
     recurse => true,
     owner   => 'rundeck',
     group   => 'rundeck',
+    mode    => '0750',
     source  => 'puppet:///modules/profile_rundeck/projects',
     require => Class['rundeck'],
   }
@@ -40,8 +41,7 @@ class profile_rundeck::config {
   exec { 'inport check_puppet_resources job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_puppet_resources',
     environment => ['RD_USER=adminxi', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    subscribe   => File['/tmp/jobs/'],
-    refreshonly => true,
+    require     => File['/tmp/jobs/'],
   }
 
 }
