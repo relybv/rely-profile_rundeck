@@ -44,4 +44,10 @@ class profile_rundeck::config {
     require     => File['/tmp/jobs/'],
   }
 
+  exec { 'inport disable_appl_lb job':
+    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/disable_appl_lb',
+    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+    require     => File['/tmp/jobs/'],
+  }
+
 }
