@@ -21,7 +21,7 @@ class profile_rundeck::config {
   }
 
   exec { 'move projectsdir':
-    command     => '/bin/mv -u /tmp/projects /var/lib/rundeck/',
+    command     => '/bin/rm -rf /var/lib/rundeck/projects;/bin/mv /tmp/projects /var/lib/rundeck/',
     subscribe   => File['/tmp/projects/'],
     refreshonly => true,
   }
