@@ -1,0 +1,21 @@
+- description: Update or install a package using apt-get.
+  executionEnabled: true
+  loglevel: INFO
+  name: Update or install package
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      threadcount: 1
+    filter: .*
+  nodesSelectedByDefault: false
+  options:
+  - name: Package
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - description: Install package
+      exec: apt-get install -y ${option.Package}
+    keepgoing: false
+    strategy: node-first
