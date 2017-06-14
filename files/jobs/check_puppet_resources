@@ -1,0 +1,21 @@
+- description: Check if configured puppet resources are present using serverspec from puppet profile modules.
+  executionEnabled: true
+  loglevel: INFO
+  multipleExecutions: true
+  name: Check puppet resources
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: true
+      rankOrder: ascending
+      threadcount: 10
+    filter: .*
+  nodesSelectedByDefault: true
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - description: Check services
+      exec: HOME=/var/lib/rundeck '/opt/puppetlabs/puppet/bin/rspec /usr/local/rspec_tests/ -f d'
+    keepgoing: false
+    strategy: node-first
+  timeout: 5m
