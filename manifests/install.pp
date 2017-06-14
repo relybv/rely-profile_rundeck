@@ -51,12 +51,6 @@ class profile_rundeck::install {
     framework_config  => $myframework_config,
   }
 
-  rundeck::config::project { 'management':
-    file_copier_provider   => 'script-copy',
-    node_executor_provider => 'script-exec',
-    ssh_keypath            => '/var/lib/rundeck/.ssh/id_rsa',
-  }
-
   file { '/var/lib/rundeck/libext/rundeck-json-plugin-1.1.jar':
     source  => 'puppet:///modules/profile_rundeck/rundeck-json-plugin-1.1.jar',
     require => Class['rundeck'],

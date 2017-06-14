@@ -1,0 +1,4 @@
+inventory do
+  format "- %s:\n  hostname: %s\n  nodename: %s\n  osName: %s\n  osVersion: %s\n  osArch: %s\n  tags: '%s'"
+  fields { [ identity, identity, identity, facts['operatingsystem'], facts['operatingsystemrelease'], facts['architecture'], classes.join(",") ]}
+end
