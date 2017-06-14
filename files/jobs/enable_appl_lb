@@ -27,7 +27,7 @@
   sequence:
     commands:
     - description: Enable from loadbalancer
-      exec: haproxyctl "disable server appl${option.Port}/${option.Applicationserver}"
+      exec: haproxyctl "enable server appl${option.Port}/${option.Applicationserver}"
     - description: Check if server is up
       exec: haproxyctl "show health" | grep appl${option.Port} | grep ${option.Applicationserver} | grep UP
     keepgoing: false
