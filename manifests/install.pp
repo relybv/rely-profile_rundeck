@@ -52,7 +52,8 @@ class profile_rundeck::install {
   }
 
   package {'rundeck-cli':
-    ensure => present,
+    ensure  => present,
+    require => Class['rundeck'],
   }
 
   file {'/var/lib/rundeck/libext/rundeck-json-plugin-1.1.jar':
