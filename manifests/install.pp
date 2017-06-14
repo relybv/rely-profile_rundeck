@@ -62,9 +62,4 @@ class profile_rundeck::install {
     require => Class['rundeck'],
   }
 
-  file { '/var/lib/rundeck/libext/rundeck-mcollective-nodes-1.1-plugin.zip':
-    source  => 'puppet:///modules/profile_rundeck/rundeck-mcollective-nodes-1.1-plugin.zip',
-    require => Class['rundeck'],
-  }
-
 }
