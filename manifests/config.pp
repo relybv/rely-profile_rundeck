@@ -38,8 +38,8 @@ class profile_rundeck::config {
   }
 
   exec { 'inport check_puppet_resources job':
-    command     => 'RD_USER=admin RD_PASSWORD=admin RD_URL=http://localhost:4440 /usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_puppet_resources',
-    path        => '/usr/bin',
+    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_puppet_resources',
+    environment => ['RD_USER=adminxi', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
     subscribe   => File['/tmp/jobs/'],
     refreshonly => true,
   }
