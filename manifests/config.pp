@@ -16,6 +16,8 @@ class profile_rundeck::config {
   file {'/tmp/projects/':
     ensure  => directory,
     recurse => true,
+    owner   => 'rundeck',
+    group   => 'rundeck',
     source  => 'puppet:///modules/profile_rundeck/projects',
     require => Class['rundeck'],
   }
@@ -29,6 +31,8 @@ class profile_rundeck::config {
   file {'/tmp/jobs/':
     ensure  => directory,
     recurse => true,
+    owner   => 'rundeck',
+    group   => 'rundeck',
     source  => 'puppet:///modules/profile_rundeck/jobs',
     require => Class['rundeck'],
   }
