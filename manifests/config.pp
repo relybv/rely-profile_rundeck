@@ -9,25 +9,21 @@ class profile_rundeck::config {
   }
 
   file { '/var/lib/rundeck/rundeckmcoinv.mco':
-    source  => 'puppet:///modules/profile_rundeck/',
+    source  => 'puppet:///modules/profile_rundeck/rundeckmcoinv.mco',
     require => Class['rundeck'],
   }
 
-  rundeck::config::project { 'Management':
-    file_copier_provider   => 'script-copy',
-    node_executor_provider => 'script-exec',
-    ssh_keypath            => '/var/lib/rundeck/.ssh/id_rsa',
+  file { '/tmp/projects/':
+    ensure  => directory,
+    recurse => true,
+    source  => 'puppet:///modules/profile_rundeck/projects',
+    require => Class['rundeck'],
   }
 
-  rundeck::config::resource_source { 'resource':
-    project_name        => 'Management',
-    number              => '1',
-    source_type         => 'script',
-    include_server_node => false,
-    resource_format     => 'resourceyaml',
-    script_file         => '/usr/local/bin/mco',
-    script_args         => 'inventory --script /var/lib/rundeck/rundeckmcoinv.mco',
-    script_args_quoted  => true,
+  exec { 'move projectsdir':
+    command     => '/bin/mv /tmp/projects /var/lib/rundeck/',
+    subscribe   => File['/tmp/projects/'],
+    refreshonly => true,
   }
 
 }
