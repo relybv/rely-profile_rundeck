@@ -1,0 +1,35 @@
+- description: Enable application server in loadbalancer using haproxyctl
+  executionEnabled: true
+  loglevel: INFO
+  name: Enable application server in loadbalancer
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      threadcount: 1
+    filter: .*lb[1-9]
+  nodesSelectedByDefault: true
+  options:
+  - description: Application server to enable.
+    name: Applicationserver
+    regex: .*appl[1-9]
+    required: true
+  - description: The port to enable
+    enforced: true
+    name: Port
+    required: true
+    value: '443'
+    values:
+    - '443'
+    - '80'
+  scheduleEnabled: false
+  sequence:
+    commands:
+    - description: Enable from loadbalancer
+      exec: haproxyctl "disable server appl${option.Port}/${option.Applicationserver}"
+    - description: Check if server is up
+      exec: haproxyctl "show health" | grep appl${option.Port} | grep ${option.Applicationserver} | grep UP
+    keepgoing: false
+    strategy: node-first
+  timeout: 5m
