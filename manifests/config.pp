@@ -59,4 +59,16 @@ class profile_rundeck::config {
     require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
   }
 
+  exec { 'inport update_package job':
+    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/update_package',
+    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
+  }
+
+  exec { 'inport rolling_update_apache job':
+    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/rolling_update_apache',
+    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
+  }
+
 }
