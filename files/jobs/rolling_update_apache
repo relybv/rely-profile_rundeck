@@ -15,20 +15,20 @@
   sequence:
     commands:
     - jobref:
-        group: ''
+        group: 'Functions'
         name: Check puppet resources
     - description: Update repos
       exec: apt-get update
     - jobref:
         args: -Applicationserver appl1 -Port 443
-        group: ''
+        group: 'Functions'
         name: Disable application server in loadbalancer
         nodefilters:
           filter: 'name: rely-citest-lb1'
     - description: Update apache appl1
       jobref:
         args: -Package apache2
-        group: ''
+        group: 'Functions'
         name: Update or install package
         nodeStep: 'true'
         nodefilters:
@@ -36,7 +36,7 @@
     - description: Enable application server
       jobref:
         args: -Applicationserver appl1 -Port 443
-        group: ''
+        group: 'Functions'
         name: Enable application server in loadbalancer
         nodefilters:
           dispatch:
@@ -44,14 +44,14 @@
           filter: 'name: rely-citest-lb1'
     - jobref:
         args: -Applicationserver appl2 -Port 443
-        group: ''
+        group: 'Functions'
         name: Disable application server in loadbalancer
         nodefilters:
           filter: 'name: rely-citest-lb1'
     - description: Update apache appl2
       jobref:
         args: -Package apache2
-        group: ''
+        group: 'Functions'
         name: Update or install package
         nodeStep: 'true'
         nodefilters:
@@ -59,14 +59,14 @@
     - description: Enable application server
       jobref:
         args: -Applicationserver appl2 -Port 443
-        group: ''
+        group: 'Functions'
         name: Enable application server in loadbalancer
         nodefilters:
           dispatch:
             keepgoing: false
           filter: 'name: rely-citest-lb1'
     - jobref:
-        group: ''
+        group: 'Functions'
         name: Check puppet resources
     keepgoing: false
     strategy: node-first
