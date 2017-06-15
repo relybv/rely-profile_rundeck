@@ -17,6 +17,10 @@
     - jobref:
         group: 'Functions'
         name: Check puppet resources
+    - jobref:
+        args: -Nrservers 2
+        group: 'Functions'
+        name: Check nr. of loadbalancer backends
     - description: Update repos
       exec: apt-get update
     - jobref:
