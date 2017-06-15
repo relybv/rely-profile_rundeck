@@ -1,0 +1,22 @@
+- description: Check SLA.
+  executionEnabled: true
+  loglevel: INFO
+  multipleExecutions: true
+  name: Check SLA
+  group: Functions
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: true
+      rankOrder: ascending
+      threadcount: 10
+    filter: .*
+  nodesSelectedByDefault: true
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - description: Check sla (dummy for now)
+      exec: exit 0
+    keepgoing: false
+    strategy: node-first
+  timeout: 5m

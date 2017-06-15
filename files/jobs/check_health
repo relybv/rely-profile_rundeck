@@ -1,0 +1,29 @@
+- description: Check overal system health
+  executionEnabled: true
+  loglevel: INFO
+  name: Check overal system health
+  group: Procedures
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      threadcount: 1
+    filter: '.*'
+  nodesSelectedByDefault: true
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - jobref:
+        group: 'Functions'
+        name: Check puppet resources
+    - jobref:
+        args: -Nrservers 2
+        group: 'Functions'
+        name: Check nr. of loadbalancer backends
+    - jobref:
+        args: -Nrservers 2
+        group: 'Functions'
+        name: Check SLA
+    keepgoing: false
+    strategy: node-first

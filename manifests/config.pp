@@ -42,6 +42,18 @@ class profile_rundeck::config {
   }
 
   #### rundeck jobs ####
+  exec { 'inport check_sla job':
+    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_sla',
+    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
+  }
+
+  exec { 'inport check_health job':
+    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_health',
+    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
+  }
+
   exec { 'inport check_lb_backends job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_lb_backends',
     environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
