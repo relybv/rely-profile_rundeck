@@ -41,6 +41,13 @@ class profile_rundeck::config {
     command => '/usr/bin/wget --spider --tries 100 --retry-connrefused http://localhost:4440',
   }
 
+  #### rundeck jobs ####
+  exec { 'inport check_lb_backends job':
+    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_lb_backends',
+    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
+  }
+
   exec { 'inport check_puppet_resources job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_puppet_resources',
     environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],

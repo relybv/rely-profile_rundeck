@@ -1,0 +1,27 @@
+- description: Check number of active backends on loadbalancer using haproxyctl
+  executionEnabled: true
+  loglevel: INFO
+  name: Check nr. of loadbalancer backends
+  group: Functions
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      threadcount: 1
+    filter: .*lb[1-9]
+  nodesSelectedByDefault: true
+  options:
+  - description: Number of servers
+    enforced: false
+    name: Nrservers
+    required: true
+    value: '2'
+  scheduleEnabled: false
+  sequence:
+    commands:
+    - description: Check if number of servers is available
+      exec: if haproxyctl "show backend" | grep appl443 | grep ${option.Nrservers}; then echo "${option.Nrservers} Servers available"; fi;
+    keepgoing: false
+    strategy: node-first
+  timeout: 5m
