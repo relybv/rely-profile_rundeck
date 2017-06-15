@@ -2,6 +2,7 @@
   executionEnabled: true
   loglevel: INFO
   name: Disable application server in loadbalancer
+  group: Functions
   nodefilters:
     dispatch:
       excludePrecedence: true

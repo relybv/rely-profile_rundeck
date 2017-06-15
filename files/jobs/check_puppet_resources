@@ -3,6 +3,7 @@
   loglevel: INFO
   multipleExecutions: true
   name: Check puppet resources
+  group: Functions
   nodefilters:
     dispatch:
       excludePrecedence: true

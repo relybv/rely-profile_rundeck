@@ -2,6 +2,7 @@
   executionEnabled: true
   loglevel: INFO
   name: Update or install package
+  group: Functions
   nodefilters:
     dispatch:
       excludePrecedence: true
