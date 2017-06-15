@@ -1,8 +1,8 @@
 - description: Rolling update of apache servers
   executionEnabled: true
-  id: 45c1f826-9f91-46c1-ab9a-d9867cbe9777
   loglevel: INFO
   name: Rolling update apache
+  group: Procedures
   nodefilters:
     dispatch:
       excludePrecedence: true
