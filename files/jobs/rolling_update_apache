@@ -47,6 +47,10 @@
             keepgoing: false
           filter: 'name: rely-citest-lb1'
     - jobref:
+        args: -Nrservers 2
+        group: 'Functions'
+        name: Check nr. of loadbalancer backends
+    - jobref:
         args: -Applicationserver appl2 -Port 443
         group: 'Functions'
         name: Disable application server in loadbalancer
