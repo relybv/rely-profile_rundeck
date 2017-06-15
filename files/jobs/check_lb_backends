@@ -21,7 +21,7 @@
   sequence:
     commands:
     - description: Check if number of servers is available
-      exec: haproxyctl "show backend" | grep appl443 | awk '{print $4}' | grep ${option.Nrservers}
+      exec: bash -c "haproxyctl show backend | grep appl443 | awk '{print $4}' | grep ${option.Nrservers}"
     keepgoing: false
     strategy: node-first
   timeout: 5m
