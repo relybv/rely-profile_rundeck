@@ -38,13 +38,13 @@ class profile_rundeck::config {
 
   exec {'wait for rundeck':
     require => Class['rundeck'],
-    command => '/usr/bin/wget --spider --tries 10 --retry-connrefused http://localhost:4440',
+    command => '/usr/bin/wget --spider --tries 10 --retry-connrefused http://localhost:4440 && /bin/sleep 60',
   }
 
   #### rundeck jobs ####
   exec { 'inport check_sla job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_sla',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', "RD_URL=http://${::ipaddress}:4440"],
+    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost}:4440'],
     require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
   }
 
