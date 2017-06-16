@@ -21,6 +21,8 @@ describe 'profile_rundeck' do
           it { is_expected.to contain_class('java') }
           it { is_expected.to contain_class('rundeck') }
 
+          it { is_expected.to contain_package('rundeck-cli') }
+
         end
       end
     end
