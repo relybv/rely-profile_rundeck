@@ -41,6 +41,8 @@ class profile_rundeck::config {
     command => '/usr/bin/wget --spider --tries 10 --retry-connrefused http://localhost:4440 && /bin/sleep 60',
   }
 
+
+  if $rundeck::jobs == true {
   #### rundeck jobs ####
   exec { 'inport check_sla job':
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_sla',
@@ -88,6 +90,8 @@ class profile_rundeck::config {
     command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/rolling_update_apache',
     environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
     require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
+  }
+
   }
 
 }

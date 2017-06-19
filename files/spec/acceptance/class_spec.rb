@@ -14,7 +14,7 @@ describe 'profile_rundeck class' do
       # Using puppet_apply as a helper
       it 'should work with no errors' do
         pp = <<-EOS
-        class { 'profile_rundeck': }
+        class { 'profile_rundeck': jobs => false, }
         EOS
 
         apply_manifest(pp, :catch_failures => true)
