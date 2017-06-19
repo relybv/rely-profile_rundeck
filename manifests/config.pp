@@ -38,59 +38,58 @@ class profile_rundeck::config {
 
   exec {'wait for rundeck':
     require => Class['rundeck'],
-    command => '/usr/bin/wget --spider --tries 10 --retry-connrefused http://localhost:4440 && /bin/sleep 60',
+    command => '/usr/bin/wget --spider --tries 10 --retry-connrefused http://localhost:4440',
   }
 
-
-  if $rundeck::jobs == true {
   #### rundeck jobs ####
-  exec { 'inport check_sla job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_sla',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+  if $profile_rundeck::jobs == true {
+    exec { 'inport check_sla job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_sla',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
-  exec { 'inport check_health job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_health',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+    exec { 'inport check_health job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_health',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
-  exec { 'inport check_lb_backends job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_lb_backends',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+    exec { 'inport check_lb_backends job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_lb_backends',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
-  exec { 'inport check_puppet_resources job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_puppet_resources',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+    exec { 'inport check_puppet_resources job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/check_puppet_resources',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
-  exec { 'inport disable_appl_lb job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/disable_appl_lb',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+    exec { 'inport disable_appl_lb job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/disable_appl_lb',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
-  exec { 'inport enable_appl_lb job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/enable_appl_lb',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+    exec { 'inport enable_appl_lb job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/enable_appl_lb',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
-  exec { 'inport update_package job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/update_package',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+    exec { 'inport update_package job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/update_package',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
-  exec { 'inport rolling_update_apache job':
-    command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/rolling_update_apache',
-    environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
-    require     => [ File['/tmp/jobs/'], Exec['wait for rundeck'] ],
-  }
+    exec { 'inport rolling_update_apache job':
+      command     => '/usr/bin/rd jobs load --duplicate update --format yaml --project Management --file /tmp/jobs/rolling_update_apache',
+      environment => ['RD_USER=admin', 'RD_PASSWORD=admin', 'RD_URL=http://localhost:4440'],
+      require     => File['/tmp/jobs/'],
+    }
 
   }
 
