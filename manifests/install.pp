@@ -45,7 +45,6 @@ class profile_rundeck::install {
   }
 
   class {'rundeck':
-    package_ensure    => '2.6.11',
     grails_server_url => "http://${public_hostname}:4440",
     framework_config  => $myframework_config,
     require           => [Class['java'], Exec['apt_update']],
