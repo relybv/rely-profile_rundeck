@@ -47,7 +47,7 @@ class profile_rundeck::install {
   class {'rundeck':
     grails_server_url => "http://${public_hostname}:4440",
     framework_config  => $myframework_config,
-    require           => [Class['java'], Exec['apt_update']],
+    require           => Class['java'],
   }
 
   package {'rundeck-cli':
